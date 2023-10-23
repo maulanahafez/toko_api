@@ -21,9 +21,9 @@ class UserController extends Controller
         $token = $user->createToken('user_token')->plainTextToken;
 
         return response()->json([
-            'message' => 'User has been registered successfully',
-            'data' => $user,
-            'token' => $token,
+            'code' => 200,
+            'status' => true,
+            'data' => 'Registrasi Berhasil'
         ]);
     }
 
@@ -35,9 +35,12 @@ class UserController extends Controller
             $token = $user->createToken('user_token')->plainTextToken;
 
             return response()->json([
-                'message' => 'User has been logged in successfully',
-                'data' => $user,
-                'token' => $token,
+                'code' => 200,
+                'status' => true,
+                'data' => [
+                    'token' => $token,
+                    'user' => $user,
+                ],
             ]);
         } else {
             return response()->json([

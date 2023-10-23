@@ -9,8 +9,12 @@ class ProdukController extends Controller
 {
     public function index()
     {
-        $data = Produk::latest()->get();
-        return response()->json($data);
+        $data = Produk::select('id', 'kode_produk', 'nama_produk', 'harga')->latest()->get();
+        return response()->json([
+            "code" => 200,
+            "status" => true,
+            "data" => $data,
+        ]);
     }
 
     public function store(Request $req)
@@ -23,12 +27,15 @@ class ProdukController extends Controller
         try {
             $data = Produk::create($data);
             return response()->json([
-                "message" => 'Berhasil Simpan Data',
-                "data" => $data
+                "message" => "Berhasil Simpan Data",
+                "code" => 200,
+                "status" => true,
+                "data" => $data,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'message' => 'Gagal Simpan Data'
+                "message" => "Gagal Simpan Data",
+                "status" => false,
             ]);
         }
     }
@@ -37,10 +44,15 @@ class ProdukController extends Controller
     {
         $data = Produk::where("id", "=", $id)->first();
         if ($data) {
-            return response()->json($data);
+            return response()->json([
+                "code" => 200,
+                "status" => true,
+                "data" => $data,
+            ]);
         } else {
             return response()->json([
                 "message" => "Data Tidak Ditemukan",
+                "status" => false,
             ]);
         }
     }
@@ -56,7 +68,10 @@ class ProdukController extends Controller
         try {
             if ($data) {
                 $data->update($dataToUpdate);
+                $data = Produk::select('id', 'kode_produk', 'nama_produk', 'harga')->where("id", "=", $id)->first();
                 return response()->json([
+                    "code" => 200,
+                    "status" => true,
                     "message" => "Berhasil Update Data",
                     "data" => $data,
                 ]);
@@ -66,6 +81,7 @@ class ProdukController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => "Gagal Update Data",
+                "status" => false,
             ]);
         }
     }
@@ -77,15 +93,20 @@ class ProdukController extends Controller
             if ($data) {
                 $data->delete();
                 return response()->json([
+                    "code" => 200,
+                    "data" => true,
                     "message" => "Berhasil Hapus Data"
                 ]);
             } else {
                 return response()->json([
+                    "code" => 200,
+                    "data" => false,
                     "message" => "Data Tidak Ditemukan"
                 ]);
             }
         } catch (\Throwable $th) {
             return response()->json([
+                "data" => false,
                 "message" => "Gagal Hapus Data"
             ]);
         }
