@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -10,6 +11,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         'message' => 'Get authorized user',
         'data' => $request->user(),
     ]);
+});
+
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/login', 'login')->name('auth.login');
 });
 
 Route::prefix('account')->group(function () {
@@ -29,3 +34,11 @@ Route::controller(ProdukController::class)->group(function () {
     Route::post("produk/{id}", "update");
     Route::delete("produk/{id}", "destroy");
 });
+
+use App\Http\Controllers\MahasiswaController;
+
+Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
+Route::post('/mahasiswa', [MahasiswaController::class, 'store']);
+Route::get('/mahasiswa/{id}', [MahasiswaController::class, 'show']);
+Route::put('/mahasiswa/{id}', [MahasiswaController::class, 'update']);
+Route::delete('/mahasiswa/{id}', [MahasiswaController::class, 'destroy']);
