@@ -42,3 +42,11 @@ Route::post('/mahasiswa', [MahasiswaController::class, 'store']);
 Route::get('/mahasiswa/{id}', [MahasiswaController::class, 'show']);
 Route::put('/mahasiswa/{id}', [MahasiswaController::class, 'update']);
 Route::delete('/mahasiswa/{id}', [MahasiswaController::class, 'destroy']);
+
+use App\Http\Controllers\BukuTamuController;
+
+Route::get('/buku_tamu', [BukuTamuController::class, 'index']);
+Route::post('/buku_tamu', [BukuTamuController::class, 'store']);
+Route::get('/buku_tamu/{id}', [BukuTamuController::class, 'show']);
+Route::put('/buku_tamu/{id}', [BukuTamuController::class, 'update']);
+Route::delete('/buku_tamu/{id}', [BukuTamuController::class, 'destroy']);

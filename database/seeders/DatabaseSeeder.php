@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\BukuTamu;
 use App\Models\Mahasiswa;
 use App\Models\Produk;
 use App\Models\User;
@@ -16,18 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-        // Produk::factory()->count(10)->create();
+        User::create([
+            'username' => 'admin',
+            'password' => 'admin'
+        ]);
 
-        // User::create([
-        //     'username' => 'admin',
-        //     'password' => '123123123'
-        // ]);
-
-        Mahasiswa::factory()->count(10)->create();
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        BukuTamu::factory()->count(10)->create();
     }
 }
+
+/**
+ * database/migrations/2014_10_12_000000_create_users_table.php
+ * database/migrations/2023_12_01_103824_create_buku_tamus_table.php
+ */
